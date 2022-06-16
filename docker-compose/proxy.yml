@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+#|--------------------------------------------------------
+#| Zabbix Server Proxy
+#|--------------------------------------------------------
+  Proxy-1:
+    image: zabbix/zabbix-proxy-sqlite3:6.0-ubuntu-latest
+    container_name: Proxy-1
+    restart: unless-stopped
+    environment:
+      ZBX_PROXYMODE: 0  # <== 0 active mode - 1 passive mode
+      ZBX_SERVER_HOST: 127.0.0.1  # <== IP or DNS name of Zabbix server
+      ZBX_HOSTNAME: Proxy-1
+      ZBX_PROXYOFFLINEBUFFER: 48 # <== Proxy will keep data for N hours in case of no connectivity with Zabbix server
+    volumes:
+    - /etc/localtime:/etc/localtime
+    networks:
+      zbx_net:
+        ipv4_address: 172.19.0.2
+    ports:
+    - 10051:10051
+
+#|--------------------------------------------------------
+#| NETWORKS
+#|--------------------------------------------------------
+networks:
+  zbx_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.0.0/24
