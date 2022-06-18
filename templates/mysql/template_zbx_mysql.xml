@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>5.0</version>
-    <date>2022-06-16T12:09:42Z</date>
+    <version>6.0</version>
+    <date>2022-06-18T18:56:43Z</date>
     <groups>
         <group>
+            <uuid>180200c496f6461983844a5844426d2b</uuid>
             <name>ZBX Templates</name>
         </group>
     </groups>
     <templates>
         <template>
+            <uuid>fc4ecd6dd5d9406d834932d0b6c02cde</uuid>
             <template>Template ZBX MySQL</template>
             <name>Template ZBX MySQL</name>
             <groups>
@@ -16,446 +18,500 @@
                     <name>ZBX Templates</name>
                 </group>
             </groups>
-            <applications>
-                <application>
-                    <name>MySQL</name>
-                </application>
-                <application>
-                    <name>MySQL Database Size</name>
-                </application>
-            </applications>
             <items>
                 <item>
+                    <uuid>fe6724f1019c4ff5987ee36e1d39533e</uuid>
                     <name>MySQL open files</name>
                     <key>mysql.openfiles</key>
                     <delay>5m</delay>
-                    <status>DISABLED</status>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>6852ee4cdcfd408a953eb0b2804f69f1</uuid>
                     <name>MySQL status</name>
                     <key>mysql.ping</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <description>It requires user parameter mysql.ping, which is defined in userparameter_mysql.conf.&#13;
-&#13;
-0 - MySQL server is down&#13;
+                    <description>It requires user parameter mysql.ping, which is defined in userparameter_mysql.conf.
+
+0 - MySQL server is down
 1 - MySQL server is up</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <valuemap>
                         <name>Service state</name>
                     </valuemap>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
-                            <expression>{last(0)}&lt;&gt;1</expression>
+                            <uuid>2b29a283c99249f9a0494dedd42209d5</uuid>
+                            <expression>last(/Template ZBX MySQL/mysql.ping)&lt;&gt;1</expression>
                             <name>{HOST.NAME} MySQL is down</name>
                             <priority>HIGH</priority>
                         </trigger>
                     </triggers>
                 </item>
                 <item>
+                    <uuid>659d3f21441c4a00b3cf26805ac8577a</uuid>
                     <name>MySQL aborted connects</name>
                     <key>mysql.status[Aborted_connects]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <description>Count of failed connection attempts to the server&#13;
-&#13;
+                    <description>Count of failed connection attempts to the server
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>29fa3ca29e7d403fb46429d42166de5e</uuid>
                     <name>MySQL bytes received per second</name>
                     <key>mysql.status[Bytes_received]</key>
                     <delay>5m</delay>
                     <history>7d</history>
                     <value_type>FLOAT</value_type>
                     <units>Bps</units>
-                    <description>The number of bytes received from all clients. &#13;
-&#13;
-It requires user parameter mysql.status[*], which is defined in &#13;
+                    <description>The number of bytes received from all clients. 
+
+It requires user parameter mysql.status[*], which is defined in 
 userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>CHANGE_PER_SECOND</type>
-                            <params/>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>6085bbbff23143a5b146013d27bd2da4</uuid>
                     <name>MySQL bytes sent per second</name>
                     <key>mysql.status[Bytes_sent]</key>
                     <delay>5m</delay>
                     <history>7d</history>
                     <value_type>FLOAT</value_type>
                     <units>Bps</units>
-                    <description>The number of bytes sent to all clients.&#13;
-&#13;
+                    <description>The number of bytes sent to all clients.
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>CHANGE_PER_SECOND</type>
-                            <params/>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>82bdc2f732484a049dd5f4ccf2fe8f6c</uuid>
                     <name>MySQL begin operations per second</name>
                     <key>mysql.status[Com_begin]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <status>DISABLED</status>
                     <value_type>FLOAT</value_type>
                     <units>qps</units>
                     <description>It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>CHANGE_PER_SECOND</type>
-                            <params/>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>b460d275f4114330b24acd678d8a332f</uuid>
                     <name>MySQL commit operations per second</name>
                     <key>mysql.status[Com_commit]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <status>DISABLED</status>
                     <value_type>FLOAT</value_type>
                     <units>qps</units>
                     <description>It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>CHANGE_PER_SECOND</type>
-                            <params/>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>8ac50b09b98e4481a90017c4d1920b83</uuid>
                     <name>MySQL delete operations per second</name>
                     <key>mysql.status[Com_delete]</key>
                     <delay>5m</delay>
                     <history>7d</history>
                     <value_type>FLOAT</value_type>
                     <units>qps</units>
-                    <description>delete&#13;
-&#13;
+                    <description>delete
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>CHANGE_PER_SECOND</type>
-                            <params/>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>d233954ff70f4328af021e652fbb7a41</uuid>
                     <name>MySQL insert operations per second</name>
                     <key>mysql.status[Com_insert]</key>
                     <delay>5m</delay>
                     <history>7d</history>
                     <value_type>FLOAT</value_type>
                     <units>qps</units>
-                    <description>Inserts&#13;
-&#13;
+                    <description>Inserts
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>CHANGE_PER_SECOND</type>
-                            <params/>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>80a799ce0aaf495bbd7fb85ff6d74507</uuid>
                     <name>MySQL rollback operations per second</name>
                     <key>mysql.status[Com_rollback]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <status>DISABLED</status>
                     <value_type>FLOAT</value_type>
                     <units>qps</units>
                     <description>It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>CHANGE_PER_SECOND</type>
-                            <params/>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>c7db7a1a5cfa4ef6ba1fc017c90a4e2d</uuid>
                     <name>MySQL select operations per second</name>
                     <key>mysql.status[Com_select]</key>
                     <delay>5m</delay>
                     <history>7d</history>
                     <value_type>FLOAT</value_type>
                     <units>qps</units>
-                    <description>select &#13;
-&#13;
+                    <description>select 
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>CHANGE_PER_SECOND</type>
-                            <params/>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>1b920a135c7043bb95b664bd88b85697</uuid>
                     <name>MySQL update operations per second</name>
                     <key>mysql.status[Com_update]</key>
                     <delay>5m</delay>
                     <history>7d</history>
                     <value_type>FLOAT</value_type>
                     <units>qps</units>
-                    <description>update &#13;
-&#13;
+                    <description>update 
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>CHANGE_PER_SECOND</type>
-                            <params/>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>bb63141ee2564388b26a84d84c129db1</uuid>
                     <name>MySQL remote connections</name>
                     <key>mysql.status[Connections]</key>
                     <delay>5m</delay>
                     <history>7d</history>
                     <description>It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>7bb8ca403c324e628b9667445b77243d</uuid>
                     <name>MySQL connection errors internal</name>
                     <key>mysql.status[Connection_errors_internal]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <status>DISABLED</status>
-                    <description>Count of connections refused due to server error&#13;
-&#13;
+                    <description>Count of connections refused due to server error
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>44dec5ea6b044b6bbf15287ce2b4765b</uuid>
                     <name>MySQL connection errors</name>
                     <key>mysql.status[Connection_errors_max_connections]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <status>DISABLED</status>
-                    <description>Count of connections refused due to max_connections limit&#13;
-&#13;
+                    <description>Count of connections refused due to max_connections limit
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>152afff41b9e42afa7dbc05340fe1bf6</uuid>
                     <name>MySQL Innodb buffer pool pages data</name>
                     <key>mysql.status[Innodb_buffer_pool_pages_data]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <description>Ratio of used to total pages in the buffer pool&#13;
-&#13;
+                    <description>Ratio of used to total pages in the buffer pool
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>66f8504253b4442c83afbd55b28d5980</uuid>
                     <name>MySQL Innodb buffer pool pages free</name>
                     <key>mysql.status[Innodb_buffer_pool_pages_free]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <description>Ratio of free to total pages in the buffer pool&#13;
-&#13;
+                    <description>Ratio of free to total pages in the buffer pool
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>6219d01c14054d15bd2955fd7f414086</uuid>
                     <name>MySQL innodb buffer pool reads</name>
                     <key>mysql.status[Innodb_buffer_pool_reads]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <description>Requests the buffer pool could not fulfill&#13;
-&#13;
+                    <description>Requests the buffer pool could not fulfill
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>22ba246746cc40fc914a1bb5a4d5bf5a</uuid>
                     <name>MySQL Innodb buffer pool read requests</name>
                     <key>mysql.status[innodb_buffer_pool_read_requests]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <description>Requests made to the buffer pool&#13;
-&#13;
+                    <description>Requests made to the buffer pool
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>edd771c786324a94a4fd69c28dee1c10</uuid>
                     <name>MySQL queries per second</name>
                     <key>mysql.status[Questions]</key>
                     <delay>5m</delay>
                     <history>7d</history>
                     <value_type>FLOAT</value_type>
                     <units>qps</units>
-                    <description>Count of executed statements (sent by client)&#13;
-&#13;
+                    <description>Count of executed statements (sent by client)
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>CHANGE_PER_SECOND</type>
-                            <params/>
+                            <parameters>
+                                <parameter/>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>6f6c2b06d071455a8e2abcd472ac4a4f</uuid>
                     <name>MySQL slow queries</name>
                     <key>mysql.status[Slow_queries]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <description>Number of queries exceeding configurable long_query_time limit&#13;
-&#13;
+                    <description>Number of queries exceeding configurable long_query_time limit
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>cef4fa8c295c46e78f79c07941c65372</uuid>
                     <name>MySQL threads connected</name>
                     <key>mysql.status[Threads_connected]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <description>Currently open connections&#13;
-&#13;
+                    <description>Currently open connections
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>9f3f4c4715ba48fe85728748002bf8cc</uuid>
                     <name>MySQL threads running</name>
                     <key>mysql.status[Threads_running]</key>
                     <delay>5m</delay>
                     <history>7d</history>
-                    <description>Currently running connections&#13;
-&#13;
+                    <description>Currently running connections
+
 It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>a03c351f2bd74537b3317516d6b48c1b</uuid>
                     <name>MySQL uptime</name>
                     <key>mysql.status[Uptime]</key>
                     <delay>1d</delay>
@@ -463,14 +519,16 @@ It requires user parameter mysql.status[*], which is defined in userparameter_my
                     <trends>0</trends>
                     <units>uptime</units>
                     <description>It requires user parameter mysql.status[*], which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>f2290b8217694acdb5f69bf70d31cdd1</uuid>
                     <name>MySQL version</name>
                     <key>mysql.version</key>
                     <delay>1d</delay>
@@ -478,20 +536,21 @@ It requires user parameter mysql.status[*], which is defined in userparameter_my
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
                     <description>It requires user parameter mysql.version, which is defined in userparameter_mysql.conf.</description>
-                    <applications>
-                        <application>
-                            <name>MySQL</name>
-                        </application>
-                    </applications>
                     <request_method>POST</request_method>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>MySQL</value>
+                        </tag>
+                    </tags>
                 </item>
             </items>
             <discovery_rules>
                 <discovery_rule>
+                    <uuid>19d851aecf4e4d1faf7ac1c45ec389bc</uuid>
                     <name>MySQL database discovery</name>
                     <key>mysql.dbname</key>
                     <delay>1d</delay>
-                    <status>DISABLED</status>
                     <filter>
                         <evaltype>AND</evaltype>
                         <conditions>
@@ -505,79 +564,98 @@ It requires user parameter mysql.status[*], which is defined in userparameter_my
                     <lifetime>0</lifetime>
                     <item_prototypes>
                         <item_prototype>
+                            <uuid>eee2bdb6e73241ec9134efce8f341079</uuid>
                             <name>MySQL Database Size {#DBNAME}</name>
                             <key>mysql.size[{#DBNAME}]</key>
                             <delay>1d</delay>
                             <history>7d</history>
                             <units>B</units>
-                            <applications>
-                                <application>
-                                    <name>MySQL Database Size</name>
-                                </application>
-                            </applications>
                             <request_method>POST</request_method>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>MySQL Database Size</value>
+                                </tag>
+                            </tags>
                         </item_prototype>
                     </item_prototypes>
                     <request_method>POST</request_method>
                 </discovery_rule>
             </discovery_rules>
-            <screens>
-                <screen>
+            <dashboards>
+                <dashboard>
+                    <uuid>57d5f80aad97463a8cbf208371c470a6</uuid>
                     <name>MySQL performance</name>
-                    <hsize>2</hsize>
-                    <vsize>1</vsize>
-                    <screen_items>
-                        <screen_item>
-                            <resourcetype>0</resourcetype>
-                            <style>0</style>
-                            <resource>
-                                <name>MySQL operations</name>
-                                <host>Template ZBX MySQL</host>
-                            </resource>
-                            <width>500</width>
-                            <height>200</height>
-                            <x>0</x>
-                            <y>0</y>
-                            <colspan>1</colspan>
-                            <rowspan>1</rowspan>
-                            <elements>0</elements>
-                            <valign>1</valign>
-                            <halign>0</halign>
-                            <dynamic>0</dynamic>
-                            <sort_triggers>0</sort_triggers>
-                            <url/>
-                            <application/>
-                            <max_columns>3</max_columns>
-                        </screen_item>
-                        <screen_item>
-                            <resourcetype>0</resourcetype>
-                            <style>0</style>
-                            <resource>
-                                <name>MySQL bandwidth</name>
-                                <host>Template ZBX MySQL</host>
-                            </resource>
-                            <width>500</width>
-                            <height>270</height>
-                            <x>1</x>
-                            <y>0</y>
-                            <colspan>1</colspan>
-                            <rowspan>1</rowspan>
-                            <elements>0</elements>
-                            <valign>1</valign>
-                            <halign>0</halign>
-                            <dynamic>0</dynamic>
-                            <sort_triggers>0</sort_triggers>
-                            <url/>
-                            <application/>
-                            <max_columns>3</max_columns>
-                        </screen_item>
-                    </screen_items>
-                </screen>
-            </screens>
+                    <pages>
+                        <page>
+                            <widgets>
+                                <widget>
+                                    <type>GRAPH_CLASSIC</type>
+                                    <width>12</width>
+                                    <height>7</height>
+                                    <fields>
+                                        <field>
+                                            <type>INTEGER</type>
+                                            <name>source_type</name>
+                                            <value>0</value>
+                                        </field>
+                                        <field>
+                                            <type>GRAPH</type>
+                                            <name>graphid</name>
+                                            <value>
+                                                <host>Template ZBX MySQL</host>
+                                                <name>MySQL operations</name>
+                                            </value>
+                                        </field>
+                                    </fields>
+                                </widget>
+                                <widget>
+                                    <type>GRAPH_CLASSIC</type>
+                                    <x>12</x>
+                                    <width>12</width>
+                                    <height>7</height>
+                                    <fields>
+                                        <field>
+                                            <type>INTEGER</type>
+                                            <name>source_type</name>
+                                            <value>0</value>
+                                        </field>
+                                        <field>
+                                            <type>GRAPH</type>
+                                            <name>graphid</name>
+                                            <value>
+                                                <host>Template ZBX MySQL</host>
+                                                <name>MySQL bandwidth</name>
+                                            </value>
+                                        </field>
+                                    </fields>
+                                </widget>
+                            </widgets>
+                        </page>
+                    </pages>
+                </dashboard>
+            </dashboards>
+            <valuemaps>
+                <valuemap>
+                    <uuid>2cacb3378089409380998523da7b647b</uuid>
+                    <name>Service state</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>Down</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>Up</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
         </template>
     </templates>
     <graphs>
         <graph>
+            <uuid>498b86cd56954a318777e96875c1ac81</uuid>
             <name>MySQL bandwidth</name>
             <graph_items>
                 <graph_item>
@@ -600,6 +678,7 @@ It requires user parameter mysql.status[*], which is defined in userparameter_my
             </graph_items>
         </graph>
         <graph>
+            <uuid>1e8601a7e0114f8cbdab92f7562d90b0</uuid>
             <name>MySQL operations</name>
             <graph_items>
                 <graph_item>
@@ -660,19 +739,4 @@ It requires user parameter mysql.status[*], which is defined in userparameter_my
             </graph_items>
         </graph>
     </graphs>
-    <value_maps>
-        <value_map>
-            <name>Service state</name>
-            <mappings>
-                <mapping>
-                    <value>0</value>
-                    <newvalue>Down</newvalue>
-                </mapping>
-                <mapping>
-                    <value>1</value>
-                    <newvalue>Up</newvalue>
-                </mapping>
-            </mappings>
-        </value_map>
-    </value_maps>
 </zabbix_export>
