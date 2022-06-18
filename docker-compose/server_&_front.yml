@@ -1,0 +1,75 @@
+version: '3.7'
+services:
+#|--------------------------------------------------------
+#| Zabbix Server
+#|--------------------------------------------------------
+  zabbix-server:
+    build:
+      context: dockerfile-server
+      dockerfile: Dockerfile
+    image: zabbix-server-mysql:ubuntu-6.0-latest
+    container_name: zabbix-server
+    restart: unless-stopped
+    environment:
+      ZBX_HOSTNAME: zabbix-server
+      DB_SERVER_HOST: 127.0.0.1
+      MYSQL_DATABASE: zabbix
+      MYSQL_PASSWORD: zabbix
+      MYSQL_USER: zabbix
+      ZBX_TIMEOUT: 10
+      ZBX_STARTPOLLERSUNREACHABLE: 5
+      ZBX_STARTPINGERS: 5
+      ZBX_STARTHTTPPOLLERS: 3
+      ZBX_CACHESIZE: 1G
+      ZBX_STARTDISCOVERERS: 3
+    volumes:
+    - /etc/localtime:/etc/localtime
+    - /home/administrator/data/alertscripts/:/usr/lib/zabbix/alertscripts
+    - /home/administrator/data/externalscripts/:/usr/lib/zabbix/externalscripts
+    - /home/administrator/data/modules/:/var/lib/zabbix/modules
+    - /home/administrator/data/enc/:/var/lib/zabbix/enc
+    - /home/administrator/data/ssh_keys/:/var/lib/zabbix/ssh_keys
+    - /home/administrator/data/certs/:/var/lib/zabbix/ssl/certs
+    - /home/administrator/data/keys/:/var/lib/zabbix/ssl/keys
+    - /home/administrator/data/ssl_ca/:/var/lib/zabbix/ssl/ssl_ca
+    - /home/administrator/data/snmptraps/:/var/lib/zabbix/snmptraps
+    - /home/administrator/data/mibs/:/var/lib/zabbix/mibs
+    - /home/administrator/data/ssh_keys/zabbix/:/var/lib/zabbix/.ssh
+    networks:
+      zbx_net:
+        ipv4_address: 172.18.0.2
+    ports:
+    - 10051:10051
+#|--------------------------------------------------------
+#| Zabbix Web
+#|--------------------------------------------------------
+  zabbix-web:
+    image: zabbix/zabbix-web-apache-mysql:ubuntu-6.0-latest
+    hostname: zabbix-web
+    container_name: zabbix-web
+    restart: unless-stopped
+    environment:
+      DB_SERVER_HOST: 127.0.0.1
+      MYSQL_DATABASE: zabbix
+      MYSQL_PASSWORD: zabbix
+      MYSQL_USER: zabbix
+      PHP_TZ: America/Sao_Paulo
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_SERVER_NAME: Zabbix TESTE
+    volumes:
+    - /etc/localtime:/etc/localtime
+    networks:
+      zbx_net:
+        ipv4_address: 172.18.0.3
+    ports:
+    - 80:8080
+
+#|--------------------------------------------------------
+#| NETWORKS
+#|--------------------------------------------------------
+networks:
+  zbx_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/24
